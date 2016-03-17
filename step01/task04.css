@@ -1,0 +1,26 @@
+#circle1  {
+width: 0px;
+height: 0px;
+//border-right: 90px solid transparent;
+border: 50px solid #fc0;
+//border-top-left-radius: 50px;
+//border-top-right-radius: 90px;
+//border-bottom-left-radius: 90px;
+border-bottom-right-radius: 50px;
+}
+#circle2  {
+width: 0px;
+height: 0px;
+//border-right: 90px solid transparent;
+border: 50px solid #fc0;
+border-top-left-radius: 50px;
+//border-top-right-radius: 90px;
+//border-bottom-left-radius: 90px;
+//border-bottom-right-radius: 50px;
+}
+#seq {
+  width: 400px;
+  height: 200px;
+  background-color: #ccc;
+  
+}
