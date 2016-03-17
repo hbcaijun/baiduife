@@ -1,0 +1,29 @@
+h1 {
+  border: 1px solid red;
+  padding: 4px;
+
+}
+div {
+
+  background-color:red;
+  height: 80px;
+
+}
+#baidu{
+  position: absolute;
+  height: 50px;
+  top: 15;
+
+}
+ul {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  list-style: circle inside black;
+}
+
+ul li{
+  float: right;
+margin: 5px 30px;
+font-size: 14px;
+}
