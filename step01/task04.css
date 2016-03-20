@@ -1,26 +1,30 @@
 #circle1  {
 width: 0px;
 height: 0px;
-//border-right: 90px solid transparent;
-border: 50px solid #fc0;
-//border-top-left-radius: 50px;
-//border-top-right-radius: 90px;
-//border-bottom-left-radius: 90px;
+border: 25px solid #fc0;
 border-bottom-right-radius: 50px;
+position:relative;
 }
 #circle2  {
 width: 0px;
 height: 0px;
-//border-right: 90px solid transparent;
-border: 50px solid #fc0;
+border: 25px solid #fc0;
 border-top-left-radius: 50px;
-//border-top-right-radius: 90px;
-//border-bottom-left-radius: 90px;
-//border-bottom-right-radius: 50px;
+position: relative;
+left: 350;
+top: 100;
 }
 #seq {
   width: 400px;
   height: 200px;
   background-color: #ccc;
-  
+
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -200px;
+}
+* {
+    overflow:hidden;
 }
