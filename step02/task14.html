@@ -37,20 +37,10 @@ for(var i = 0; i < aqiData.length; i++){
 for(var i = 0; i < aqiData.length; i++) {
   if (aqiData[i][1] > 60){
     var Li = document.createElement("LI");
-    var t1 = document.createTextNode("第");
-    var t2 = document.createTextNode(i);
-    var t3 = document.createTextNode("名：");
-    var t4 = document.createTextNode(aqiData[i][0]);
-    var t5 = document.createTextNode("------");
-    var t6 = document.createTextNode(aqiData[i][1]);
+    var t1 = document.createTextNode("第"+i+"名：");
+    var t2 = document.createTextNode(aqiData[i][0]+"------"+aqiData[i][1]);
     Li.appendChild(t1);
     Li.appendChild(t2);
-    Li.appendChild(t3);
-    Li.appendChild(t4);
-    Li.appendChild(t5);
-    Li.appendChild(t6);
-    
-
     document.getElementById("aqi-list").appendChild(Li);
   }
 }
