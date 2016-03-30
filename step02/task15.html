@@ -7,14 +7,14 @@
 <body>
 
   <ul id="source">
-    <li>北京空气质量：<b>90</b></li>
-    <li>上海空气质量：<b>70</b></li>
-    <li>天津空气质量：<b>80</b></li>
-    <li>广州空气质量：<b>50</b></li>
-    <li>深圳空气质量：<b>40</b></li>
+    <li>北京空气质量：<b>95</b></li>
+    <li>上海空气质量：<b>73</b></li>
+    <li>天津空气质量：<b>84</b></li>
+    <li>广州空气质量：<b>52</b></li>
+    <li>深圳空气质量：<b>41</b></li>
     <li>福州空气质量：<b>32</b></li>
-    <li>成都空气质量：<b>90</b></li>
-    <li>乌鲁木齐空气质量：<b>70</b></li>
+    <li>成都空气质量：<b>97</b></li>
+    <li>乌鲁木齐空气质量：<b>78</b></li>
   </ul>
 
   <ul id="resort">
@@ -59,12 +59,12 @@ return data;
  */
 function sortAqiData(data) {
 
-  for(var i = 0; i < data.length; i++){
-    for(var j = 1; j < data.length; j++){
-      if (data[i][1] > data[j][1]){
-        var temp = data[i];
-        data[i] = data[j];
-        data[j] = temp;
+  for(var i = 0; i < (data.length)-1; i++){
+    for(var j = 0; j < data.length-i-1; j++){
+      if (data[j][1] < data[j+1][1]){
+        var temp = data[j];
+        data[j] = data[j+1];
+        data[j+1] = temp;
       }
     }
   }
