@@ -24,26 +24,6 @@ var aqiData = [
   ["西安", 100]
 ];
 
-for(var i = 0; i < aqiData.length; i++){
-  for(var j = 1; j < aqiData.length; j++){
-    if (aqiData[i][1] > aqiData[j][1]){
-      var temp = aqiData[i];
-      aqiData[i] = aqiData[j];
-      aqiData[j] = temp;
-    }
-  }
-}
-
-for(var i = 0; i < aqiData.length; i++) {
-  if (aqiData[i][1] > 60){
-    var Li = document.createElement("LI");
-    var t1 = document.createTextNode("第"+i+"名：");
-    var t2 = document.createTextNode(aqiData[i][0]+"------"+aqiData[i][1]);
-    Li.appendChild(t1);
-    Li.appendChild(t2);
-    document.getElementById("aqi-list").appendChild(Li);
-  }
-}
 
 (function () {
 
@@ -52,7 +32,29 @@ for(var i = 0; i < aqiData.length; i++) {
   遍历读取aqiData中各个城市的数据
   将空气质量指数大于60的城市显示到aqi-list的列表中
   */
+  var num = ["零","一","二","三","四"];
 
+
+  for(var i = 0; i < aqiData.length; i++){
+    for(var j = 1; j < aqiData.length; j++){
+      if (aqiData[i][1] > aqiData[j][1]){
+        var temp = aqiData[i];
+        aqiData[i] = aqiData[j];
+        aqiData[j] = temp;
+      }
+    }
+  }
+
+  for(var i = 0; i < aqiData.length; i++) {
+    if (aqiData[i][1] > 60){
+      var Li = document.createElement("LI");
+      var t1 = document.createTextNode("第"+num[i]+"名：");
+      var t2 = document.createTextNode(aqiData[i][0]+"------"+aqiData[i][1]);
+      Li.appendChild(t1);
+      Li.appendChild(t2);
+      document.getElementById("aqi-list").appendChild(Li);
+    }
+  }
 })();
 
 </script>
