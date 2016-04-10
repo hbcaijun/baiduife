@@ -2,7 +2,36 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>IFE JavaScript Task 01</title>
+    <title>IFE JavaScript Task 05</title>
+	<style type="text/css">
+    #form-gra-time{
+      width: 300px;
+      height:40px;
+      float: left;
+    }
+    #form-gra-city{
+      width: 300px;
+      height: 40px;
+    }
+		#aqi-chart-wrap {
+			height:600px;
+			border:1px,solid,black;
+			background-color:#c2c2c2;
+      position: relative;
+
+		}
+
+		.box {
+			position: absolute;
+      bottom: 0;
+		}
+    #info {
+      font-size: 20;
+      position: absolute;
+      top:0;
+    }
+
+	</style>
     <!-- <script src="task17.js"></script> -->
   </head>
 <body>
@@ -13,15 +42,16 @@
     <label>月<input name="gra-time" value="month" type="radio"></label>
   </fieldset>
 
-  <fieldset>
+  <fieldset id="form-gra-city">
     <legend>请选择查看的城市：</legend>
     <select id="city-select">
       <!-- <option>北京</option> -->
     </select>
   </fieldset>
 
-  <div class="aqi-chart-wrap">
+  <div id="aqi-chart-wrap">
   </div>
+  <div id="info"></div>
   <script src="task17.js"></script>
 </body>
 </html>

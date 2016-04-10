@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>IFE Task 18</title>
+    <style type="text/css">
+    table
+      {
+      border:1px solid black;
+      }
+
+    td
+      {
+      background-color:red;
+      color:white;
+      font-size: 20px;
+      text-align: center;
+      width: 40px;
+      height: 40px;
+      }
+    </style>
+  </head>
+<body>
+
+<div id="t18">
+  <input type="text" id ="inputNumber">
+  <button id ="leftIn">左侧入</button>
+  <button id ="rightIn">右侧入</button>
+  <button id ="leftOut">左侧出</button>
+  <button id ="rightOut">右侧出</button>
+  <table id = "table">
+    <tr id = "tr">
+      <td id = "td0"></td>
+      <td id = "td1"></td>
+      <td id = "td2"></td>
+      <td id = "td3"></td>
+      <td id = "td4"></td>
+      <td id = "td5"></td>
+    </tr>
+  </table>
+</div>
+
+<script type="text/javascript">
+
+var ar = new Array();
+
+function clear(){
+  var tr = document.getElementById("tr");
+  for (var i = 0; i < ar.length; i++){
+    tr.childNodes[i*2 +1].innerHTML = "";
+  }
+}
+
+function render(){
+  var tr = document.getElementById("tr");
+  for (var i = 0; i < ar.length; i++){
+    tr.childNodes[i*2 +1].innerHTML = ar[i];
+  }
+}
+
+render();
+
+document.getElementById("t18").addEventListener("click",function(event){
+  if(event.target.id == "rightOut"){
+    if(ar.length>0){
+      clear();
+      ar.pop();
+      render();
+    } else {
+      alert("There are no more items!");
+    }
+  }
+  if(event.target.id == "leftOut"){
+    if(ar.length>0){
+      clear();
+      ar.shift();
+      render();
+    } else {
+      alert("There are no more items!");
+    }
+  }
+  if(event.target.id == "rightIn"){
+    var inputNumber = document.getElementById("inputNumber").value.trim();
+    if(!inputNumber.match(/\d+$/)){
+        alert("please input number");
+        return;
+    }
+    clear();
+    ar.push(inputNumber);
+    if(ar.length>6){
+      ar.shift();
+    }
+      render();
+  }
+  if(event.target.id == "leftIn"){
+    var inputNumber = document.getElementById("inputNumber").value.trim();
+    if(!inputNumber.match(/\d+$/)){
+        alert("please input number");
+        return;
+    }
+    clear();
+    ar.unshift(inputNumber);
+    if(ar.length>6){
+      ar.pop();
+    }
+      render();
+  }
+
+  if(event.target.nodeName.toLowerCase() == "td"){
+    if(ar.length == 0){
+      alert("No number");
+      return;
+    }
+    var index = Number(event.target.id.match(/\d/));
+    alert("Delete " + index +"st number :"+ar[index]);
+    clear();
+    if(index == ar.length-1){
+      ar.pop();
+    }else {
+    for (var i = index;i < ar.length-1; i++){
+      ar[index] = ar[index+1];
+    }
+    ar.pop();
+  }
+
+    // console.log(ar[index]);
+    render();
+  }
+
+});
+
+
+
+</script>
+</body>
+</html>

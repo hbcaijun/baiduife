@@ -55,7 +55,52 @@ var pageState = {
  * 渲染图表
  */
 function renderChart() {
+	var cav = document.getElementById("aqi-chart-wrap");
+  while(cav.hasChildNodes()){
+    cav.removeChild(cav.childNodes[0]);
+  }
 
+	var boxCount = Object.keys(chartData).length;
+  console.log(boxCount);
+  var index =0;
+
+	for(var prop in chartData) {
+		var box = document.createElement("div");
+		box.title = prop +" : " + chartData[prop];
+		box.style.height = chartData[prop];
+
+		var icolor = chartData[prop] * 25000;
+		var scolor = icolor.toString(16);
+		var acolor = scolor.split("");
+		while(acolor.length < 6){
+			acolor.unshift("0");
+		}
+		acolor.unshift("#");
+		var bcolor = acolor.join("");
+		box.style.backgroundColor = bcolor;
+
+
+    box.className = "box";
+
+		switch(pageState.nowGraTime){
+			case "day":
+				box.style.width = 10;
+        box.style.left = 10* index++;
+			  cav.style.width = boxCount * 10+40;
+				break;
+			case "week":
+			   box.style.width = 20;
+         box.style.left = 20* index++;
+			   cav.style.width = boxCount * 20+40;
+				break;
+			case "month":
+				box.style.width = 40;
+        box.style.left = 40* index++;
+			  cav.style.width = boxCount * 40 +40;
+				break;
+		}
+		cav.appendChild(box);
+	}
 }
 
 /**
@@ -88,6 +133,9 @@ function initGraTimeForm() {
   document.getElementById("form-gra-time").addEventListener("RadioStateChange",function(event){
       if(event.target.nodeName.toLowerCase() == "input"　&& event.target.checked == true){
         pageState.nowGraTime = event.target.value;
+        chartData = {};
+        initAqiChartData();
+        renderChart();
     }
   });
 
@@ -111,6 +159,9 @@ function initCitySelector() {
       if(event.target.nodeName.toLowerCase() == "select"){
         // console.log(event.target.selectedIndex);
         pageState.nowSelectCity = event.target.selectedIndex;
+        chartData = {};
+        initAqiChartData();
+        renderChart();
     }
   });
 }
@@ -119,10 +170,7 @@ function initCitySelector() {
  * 初始化图表需要的数据格式
  */
 function initAqiChartData() {
-  // 将原始的源数据处理成图表需要的数据格式
-  // 处理好的数据存到 chartData 中
-  pageState.nowSelectCity = 0;
-  pageState.nowGraTime = "month";
+
   if(pageState.nowGraTime == "day"){
     chartData = aqiSourceData[Object.keys(aqiSourceData)[pageState.nowSelectCity]];
   }
@@ -131,25 +179,30 @@ function initAqiChartData() {
     var weekSum = 0;
     var day = 0;
     var week =0;
+	//var last = Object.keys(weekData)[Object.keys(weekData).length-1];
+	var last = Object.keys(weekData).pop();
+	// console.log(last);
     for (prop in weekData){
       var dat = new Date(prop);
       if (dat.getDay()<6){
         weekSum += weekData[prop];
         day++;
-
+		if (prop == last)
+		{
+			week++;
+			chartData["第"+ week + "周"] = Math.ceil(weekSum/day);
+		}
       }
       if(dat.getDay() == 6){
         weekSum += weekData[prop];
         day++;
         week++;
         chartData["第"+ week + "周"] = Math.ceil(weekSum/day);
-        console.log(chartData);
+        // console.log(chartData);
         day = 0;
         weekSum = 0;
       }
     }
-    week++;
-    chartData["第"+ week + "周"] = Math.ceil(weekSum/day);
   }
   if(pageState.nowGraTime == "month"){
     var monthData = aqiSourceData[Object.keys(aqiSourceData)[pageState.nowSelectCity]];
@@ -157,14 +210,18 @@ function initAqiChartData() {
     var monthSum = 0;
     var day = 0;
     var month = 1;
+	var last = Object.keys(monthData).pop();
     for (prop in monthData){
       var dat = new Date(prop);
       if (dat.getMonth() < month){
         monthSum += monthData[prop];
         day++;
-        if(monthData[Object.keys(monthData).length-1] == prop){
-            chartData["第"+ month + "月"] = Math.ceil(monthSum/day);
-        }
+		if (prop == last)
+		{
+		  chartData["第"+ month + "月"] = Math.ceil(monthSum/day);
+		  // console.log(chartData);
+		}
+
       }
       if(dat.getMonth() == month){
         chartData["第"+ month + "月"] = Math.ceil(monthSum/day);
@@ -184,7 +241,8 @@ function init() {
   initGraTimeForm()
   initCitySelector();
   initAqiChartData();
+  renderChart();
 }
 
 init();
-initAqiChartData();
+//renderChart();

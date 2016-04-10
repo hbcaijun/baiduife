@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>IFE Task 19</title>
+    <style type="text/css">
+      ul{
+        position:relative;
+        width: 1000px;
+        height: 500px;
+        background-color: #c2c2c2;
+        margin: 0;
+        padding: 0;
+      }
+      li {
+          /*float: left;*/
+          position: absolute;
+          bottom: 0px;
+          background-color: red;
+          width: 20px;
+          list-style-type:none;
+          text-align: center;
+          color: white;
+      }
+    </style>
+  </head>
+<body>
+
+<div id="t18">
+  <input type="text" id ="inputNumber">
+  <button id ="leftIn">左侧入</button>
+  <button id ="rightIn">右侧入</button>
+  <button id ="leftOut">左侧出</button>
+  <button id ="rightOut">右侧出</button>
+  <button id ="bubble">冒泡</button>
+  <ul id="list">
+
+  </ul>
+</div>
+
+<script type="text/javascript">
+
+var ar = new Array();
+var MAX = 10;
+
+
+function render(){
+  var list = document.getElementById("list");
+  while(list.hasChildNodes()){
+    list.removeChild(list.childNodes[0]);
+  }
+  for (var i = 0; i < ar.length; i++){
+    // console.log(i*20);
+    var liBox = document.createElement("li");
+    liBox.id=i;
+    liBox.style.height = String(ar[i]*5)+"px";
+    liBox.style.left = String(i * 20) + "px";
+    // liBox.style.height = ar[i]*5;
+    // liBox.style.left = i * 20;
+    liBox.innerHTML = ar[i];
+    list.appendChild(liBox);
+  }
+}
+
+
+function rightOut(){
+  if(ar.length>0){
+    ar.pop();
+    render();
+  } else {
+    alert("There are no more items!");
+  }
+}
+
+function leftOut(){
+  if(ar.length>0){
+    ar.shift();
+    render();
+  } else {
+    alert("There are no more items!");
+  }
+}
+
+function rightIn(){
+  var inputNumber = document.getElementById("inputNumber").value.trim();
+  // console.log(ar);
+  if(!inputNumber.match(/\d+$/)){
+      alert("please input number");
+  }
+if(inputNumber > 10 && inputNumber < 100){
+  ar.push(inputNumber);
+  if(ar.length>MAX){
+     ar.shift();
+    alert("MAX length is" + MAX);
+  }
+    render();
+  }
+  else
+  {  alert("please input number 10-100");}
+}
+
+function leftIn(){
+  var inputNumber = document.getElementById("inputNumber").value.trim();
+  // console.log(ar);
+  if(!inputNumber.match(/\d+$/)){
+      alert("please input number");
+  }
+if(inputNumber > 10 && inputNumber < 100){
+  ar.unshift(inputNumber);
+  if(ar.length>MAX){
+     ar.pop();
+    alert("MAX length is" + MAX);
+  }
+    render();
+  }
+  else
+    {alert("please input number 10-100");}
+
+}
+
+function liRm(){
+  if(ar.length == 0){
+    alert("No number");
+    return;
+  }
+  var index = Number(event.target.id.match(/\d/));
+  alert("Delete " + index +"st number :"+ar[index]);
+  if(index == ar.length-1){
+    ar.pop();
+  }else {
+  for (var i = index;i < ar.length-1; i++){
+    ar[index] = ar[index+1];
+  }
+  ar.pop();
+}
+  // console.log(ar);
+  render();
+}
+
+function bubble(){
+  for(var i =0 ; i < ar.length -1; i++){
+    for(var j = 0; j　< ar.length - i - 1; j++){
+      var t = setTimeout("compare",200);
+      // console.log(ar);
+      function compare(){
+        if(ar[j] > ar[j+1]){
+          var tmp = ar[j+1];
+          ar[j+1] = ar[j];
+          ar[j] = tmp;
+          console.log(ar);
+          render();
+        }
+      }
+        clearTimeout(t);
+      }
+    }
+
+}
+document.getElementById("t18").addEventListener("click",function(event){
+  if(event.target.id == "rightOut"){
+    rightOut();
+  }
+  if(event.target.id == "leftOut"){
+    leftOut();
+  }
+  if(event.target.id == "rightIn"){
+    rightIn();
+  }
+  if(event.target.id == "leftIn"){
+    leftIn();
+  }
+  if(event.target.id == "bubble"){
+    bubble();
+  }
+  if(event.target.nodeName.toLowerCase() == "li"){
+    liRm();
+  }
+
+   console.log(event.target.id);
+});
+
+
+
+
+
+</script>
+</body>
+</html>
