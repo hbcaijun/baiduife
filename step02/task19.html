@@ -41,7 +41,7 @@
 <script type="text/javascript">
 
 var ar = new Array();
-var MAX = 10;
+var MAX = 60;
 
 
 function render(){
@@ -138,22 +138,29 @@ function liRm(){
 }
 
 function bubble(){
-  for(var i =0 ; i < ar.length -1; i++){
-    for(var j = 0; j　< ar.length - i - 1; j++){
-      var t = setTimeout("compare",200);
-      // console.log(ar);
-      function compare(){
+	var i = 0, j = 0;
+    var t = setInterval(function(){
+
         if(ar[j] > ar[j+1]){
           var tmp = ar[j+1];
           ar[j+1] = ar[j];
           ar[j] = tmp;
-          console.log(ar);
+          console.log(j);
           render();
-        }
-      }
-        clearTimeout(t);
-      }
-    }
+		}
+		if (j < ar.length-i-1){
+		j++;
+		} else{
+		i++;
+		j = 0;
+		}
+	  }
+	  ,500);
+	  
+	if (i == ar.length -1)
+		clearInterval (t);
+      
+    
 
 }
 document.getElementById("t18").addEventListener("click",function(event){
@@ -176,7 +183,7 @@ document.getElementById("t18").addEventListener("click",function(event){
     liRm();
   }
 
-   console.log(event.target.id);
+   //console.log(event.target.id);
 });
 
 

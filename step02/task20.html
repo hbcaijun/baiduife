@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>IFE Task 20</title>
+    <style type="text/css">
+	#input{ width: 100%;}
+    td
+      {
+      background-color:red;
+      color:white;
+      font-size: 20px;
+      text-align: center;
+      width: 40px;
+      height: 40px;
+      }
+    </style>
+  </head>
+<body>
+
+<div id="t20">
+  <textarea rows = "4" cols = "20" id ="input"></textarea>
+  <button id ="add">添加</button>
+  <input type="text" id ="searchText">
+  <button id ="search">查找</button>
+  <table id = "table">
+    <tr id = "tr">
+    </tr>
+  </table>
+</div>
+
+<script type="text/javascript">
+
+var ar = new Array();
+
+function add(){
+	var text = document.getElementById("input").value.trim();
+	var pos = text.search(/[^0-9a-zA-Z\u4e00-\u9fa5]+/);
+	var tr = document.getElementById("tr");
+	while (pos >0) {
+		var tmp = text.slice(0,pos);
+		console.log(tmp);
+		ar.push(tmp);
+		var inputTxt = document.createElement("td");
+		inputTxt.innerHTML = tmp;
+		tr.appendChild(inputTxt);
+		text = text.slice(pos+1,text.length)
+		pos = text.search(/[^0-9a-zA-Z\u4e00-\u9fa5]+/);
+	}
+	ar.push(text);
+	inputTxt = document.createElement("td");
+	inputTxt.innerHTML = text;
+	tr.appendChild(inputTxt);
+}
+
+function search(){
+	var searchText = document.getElementById("searchText").value.trim();
+	console.log(searchText);
+	for (var i = 0; i < ar.length; i++){
+		var pos = ar[i].search(searchText);
+		console.log(pos);
+	}
+
+
+}
+
+document.getElementById("t20").addEventListener("click",function(event){
+  if(event.target.id == "add")
+	add();
+  if(event.target.id == "search")
+	search();
+
+
+});
+
+
+
+</script>
+</body>
+</html>
