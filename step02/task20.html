@@ -14,6 +14,9 @@
       width: 40px;
       height: 40px;
       }
+      span{
+        color:green;
+      }
     </style>
   </head>
 <body>
@@ -25,6 +28,7 @@
   <button id ="search">查找</button>
   <table id = "table">
     <tr id = "tr">
+      <!-- <td><span>test</span></td> -->
     </tr>
   </table>
 </div>
@@ -35,30 +39,33 @@ var ar = new Array();
 
 function add(){
 	var text = document.getElementById("input").value.trim();
-	var pos = text.search(/[^0-9a-zA-Z\u4e00-\u9fa5]+/);
+  console.log(text);
+  ar = text.split(/[^0-9a-zA-Z\u4e00-\u9fa5]+/);
+  if(ar[0].length=="") {
+    ar.shift();
+  }
+  if(ar[ar.length-1]=="") {
+    ar.pop();
+  }
 	var tr = document.getElementById("tr");
-	while (pos >0) {
-		var tmp = text.slice(0,pos);
-		console.log(tmp);
-		ar.push(tmp);
-		var inputTxt = document.createElement("td");
-		inputTxt.innerHTML = tmp;
-		tr.appendChild(inputTxt);
-		text = text.slice(pos+1,text.length)
-		pos = text.search(/[^0-9a-zA-Z\u4e00-\u9fa5]+/);
-	}
-	ar.push(text);
-	inputTxt = document.createElement("td");
-	inputTxt.innerHTML = text;
-	tr.appendChild(inputTxt);
+  for(var i = 0; i < ar.length; i++){
+    var inputBox = document.createElement("td");
+    inputBox.id = i;
+    inputBox.innerHTML = ar[i];
+    tr.appendChild(inputBox);
+  }
+
+
+
+
 }
 
 function search(){
 	var searchText = document.getElementById("searchText").value.trim();
-	console.log(searchText);
+  var patt = new RegExp(searchText,"g");
 	for (var i = 0; i < ar.length; i++){
-		var pos = ar[i].search(searchText);
-		console.log(pos);
+    var arTxt = document.getElementById(i).innerHTML;
+    arTxt.replace(patt,"<span>"+searchText+"</span>");
 	}
 
 
