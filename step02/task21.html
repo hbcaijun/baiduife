@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>IFE Task 21</title>
+    <style type="text/css">
+	#input{ width: 100%;}
+    td
+      {
+      background-color:red;
+      color:white;
+      font-size: 20px;
+      text-align: center;
+      width: 40px;
+      height: 40px;
+      }
+      span{
+        color:green;
+      }
+    </style>
+  </head>
+<body>
+
+<div id="t21">
+  <input type="text" id ="tag">
+  <table id = "table">
+    <tr id = "tr">
+      <!-- <td><span>test</span></td> -->
+    </tr>
+  </table>
+  <textarea rows = "4" cols = "20" id ="input"></textarea>
+  <button id ="add">确认</button>
+
+  <table id = "table">
+    <tr id = "tr">
+      <!-- <td><span>test</span></td> -->
+    </tr>
+  </table>
+</div>
+
+<script type="text/javascript">
+
+var arTag = new Array();
+var tagTxt;
+var tagInput = document.getElementById("tag");
+
+tagInput.addEventListener("keyup",function(event){
+    if(tagInput.value.search(/[,\n\r\s]/) == 0)
+      tagInput.value ="";
+    if(tagInput.value.search(/[,\n\r\s]/) > 0 || event.keyCode ==13){
+      tmp = tagInput.value.trim().split(/[,\s\n]+/);
+      arTag.push(tmp[0]);
+      
+      tagInput.value ="";
+    }
+});
+
+
+</script>
+</body>
+</html>

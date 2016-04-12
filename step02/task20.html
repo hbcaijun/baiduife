@@ -64,8 +64,8 @@ function search(){
 	var searchText = document.getElementById("searchText").value.trim();
   var patt = new RegExp(searchText,"g");
 	for (var i = 0; i < ar.length; i++){
-    var arTxt = document.getElementById(i).innerHTML;
-    arTxt.replace(patt,"<span>"+searchText+"</span>");
+    var arTxt = document.getElementById(i);
+    arTxt.innerHTML=arTxt.innerHTML.replace(patt,"<span>"+searchText+"</span>");
 	}
 
 
