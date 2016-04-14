@@ -130,9 +130,10 @@ function citySelectChange() {
  */
 function initGraTimeForm() {
 
-  document.getElementById("form-gra-time").addEventListener("RadioStateChange",function(event){
+  document.getElementById("form-gra-time").addEventListener("change",function(event){
       if(event.target.nodeName.toLowerCase() == "input"　&& event.target.checked == true){
         pageState.nowGraTime = event.target.value;
+        console.log(event.target.value);
         chartData = {};
         initAqiChartData();
         renderChart();

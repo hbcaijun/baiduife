@@ -7,13 +7,13 @@
 	#input{ width: 100%;}
     td
       {
-      background-color:red;
+      background-color:green;
       color:white;
       font-size: 20px;
       text-align: center;
-      width: 40px;
       height: 40px;
       }
+
       span{
         color:green;
       }
@@ -22,9 +22,9 @@
 <body>
 
 <div id="t21">
-  <input type="text" id ="tag">
-  <table id = "table">
-    <tr id = "tr">
+<label>TAG:<input type="text" id ="tag"></label>
+  <table id = "tagTable">
+    <tr id = "tagTr">
       <!-- <td><span>test</span></td> -->
     </tr>
   </table>
@@ -44,17 +44,69 @@ var arTag = new Array();
 var tagTxt;
 var tagInput = document.getElementById("tag");
 
+function render(ar,tr){
+  var trList = document.getElementById(tr);
+  while(trList.hasChildNodes()){
+    trList.removeChild(trList.childNodes[0]);
+  }
+  for(var i = 0; i < ar.length; i++){
+    var tdList = document.createElement("td");
+    tdList.innerHTML = ar[i];
+    tdList.id =i;
+    trList.appendChild(tdList);
+  }
+}
+
+function mouseDel(ar,tr) {
+
+  var trList = document.getElementById(tr);
+  trList.addEventListener("mouseover",function(event){
+    event.target.style.backgroundColor = "red";
+    event.target.innerHTML = "Delete " + event.target.innerHTML;
+  });
+  trList.addEventListener("mouseout",function(event){
+    event.target.style.backgroundColor = "green";
+    event.target.innerHTML = ar[event.target.id];
+  });
+  trList.addEventListener("click",function(event){
+    var index = Number(event.target.id);
+    for (var i = index;i < ar.length-1; i++){
+      ar[index] = ar[index+1];
+    }
+    ar.pop();
+    //console.log(ar);
+
+    render(ar,tr);
+  });
+
+}
+
 tagInput.addEventListener("keyup",function(event){
     if(tagInput.value.search(/[,\n\r\s]/) == 0)
       tagInput.value ="";
     if(tagInput.value.search(/[,\n\r\s]/) > 0 || event.keyCode ==13){
       tmp = tagInput.value.trim().split(/[,\s\n]+/);
       arTag.push(tmp[0]);
-      
+      if(arTag.length > 10)
+        arTag.shift();
+      render(arTag,"tagTr");
       tagInput.value ="";
     }
 });
 
+tagInput.addEventListener("click",function(event){
+    if(tagInput.value.search(/[,\n\r\s]/) == 0)
+      tagInput.value ="";
+    if(tagInput.value.search(/[,\n\r\s]/) > 0 || event.keyCode ==13){
+      tmp = tagInput.value.trim().split(/[,\s\n]+/);
+      arTag.push(tmp[0]);
+      if(arTag.length > 10)
+        arTag.shift();
+      render(arTag,"tagTr");
+      tagInput.value ="";
+    }
+});
+mouseDel(arTag,"tagTr");
 
 </script>
 </body>
