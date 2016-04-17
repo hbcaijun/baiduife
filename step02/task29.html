@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>IFE Task 29</title>
+    <style type="text/css">
+        #t22 {
+          position: relative;
+          margin:20px;
+          padding: 20px;
+        }
+        #inputTxt,#info {
+          position: absolute;
+          left:80px;
+        }
+        #info{
+          font-size:13px;
+          color:#c4c4c4;
+          margin-top:30px;
+        }
+        #inputTxt{
+          width:200px;
+        }
+        #confirmBtn{
+          position: absolute;
+          left:300px;
+        }
+
+    </style>
+  </head>
+<body>
+
+<div>
+  <label id="name">名称：　<input type="text" id ="inputTxt"></label>
+  <button id="confirmBtn">确认</button>
+  <label for="inputTxt" id="info">必填，长度为4~16个字符</label>
+</div>
+
+
+<script type="text/javascript">
+
+function getLen(str){
+  var len = str.length;
+  var re = /[\u4e00-\u9fa5]/;
+  for(var i = 0; i < str.length; i++){
+    if(re.test(str.charAt(i)))
+    len =len+1;
+  }
+    return len;
+}
+
+document.getElementById("confirmBtn").onclick =function(){
+  var tmp =document.getElementById("inputTxt").value.trim();
+  console.log(tmp);
+  var len =getLen(tmp);
+  if(len < 4 || len > 16){
+    document.getElementById("info").style.color = "red";
+    //alert("必填，长度为4~16个字符");
+  }else {
+    document.getElementById("info").style.color = "green";
+    document.getElementById("info").innerHTML = "正确";
+  }
+
+
+};
+
+
+</script>
+</body>
+</html>

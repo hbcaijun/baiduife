@@ -31,8 +31,8 @@
   <textarea rows = "4" cols = "20" id ="input"></textarea>
   <button id ="add">确认</button>
 
-  <table id = "table">
-    <tr id = "tr">
+  <table id = "iTable">
+    <tr id = "iTr">
       <!-- <td><span>test</span></td> -->
     </tr>
   </table>
@@ -41,6 +41,7 @@
 <script type="text/javascript">
 
 var arTag = new Array();
+var arInterest = new Array();
 var tagTxt;
 var tagInput = document.getElementById("tag");
 
@@ -93,21 +94,27 @@ tagInput.addEventListener("keyup",function(event){
       tagInput.value ="";
     }
 });
+    var n = {};
+document.getElementById("add").addEventListener("click",function(event){
+    tmp = document.getElementById("input").value.trim().split(/[^0-9a-zA-Z\u4e00-\u9fa5]+/);
+    console.log(tmp);
+    for(var i = 0; i < tmp.length; i++)
+    {
+          if (!n[tmp[i]]) //如果hash表中没有当前项
+          {
+              n[tmp[i]] = true; //存入hash表
+              arInterest.push(tmp[i]); //把当前数组的当前项push到临时数组里面
+          }
+      }
+      console.log(arInterest);
+      while(arInterest.length > 10){
+        arInterest.shift();
+      }
+    render(arInterest,"iTr");
 
-tagInput.addEventListener("click",function(event){
-    if(tagInput.value.search(/[,\n\r\s]/) == 0)
-      tagInput.value ="";
-    if(tagInput.value.search(/[,\n\r\s]/) > 0 || event.keyCode ==13){
-      tmp = tagInput.value.trim().split(/[,\s\n]+/);
-      arTag.push(tmp[0]);
-      if(arTag.length > 10)
-        arTag.shift();
-      render(arTag,"tagTr");
-      tagInput.value ="";
-    }
 });
 mouseDel(arTag,"tagTr");
-
+mouseDel(arInterest,"iTr");
 </script>
 </body>
 </html>
